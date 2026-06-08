@@ -10,43 +10,31 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto">
         @guest
-          @if (Route::has('login'))
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('login') }}">登录</a>
-            </li>
-          @else
-            <li class="nav-item">
-              <a class="nav-link" href="#">登录</a>
-            </li>
-          @endif
-          @if (Route::has('register'))
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('register') }}">注册</a>
-            </li>
-          @else
-            <li class="nav-item">
-              <a class="nav-link" href="#">注册</a>
-            </li>
-          @endif
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('login') }}">登录</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('register') }}">注册</a>
+          </li>
         @else
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown"
+              role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="{{ asset('images/default-avatar.svg') }}"
+                class="rounded-circle me-2" width="30" height="30" alt="{{ Auth::user()->name }}">
               {{ Auth::user()->name }}
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              @if (Route::has('logout'))
-                <li>
-                  <a class="dropdown-item" href="#"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">退出登录</a>
-                </li>
-              @endif
+              <li><a class="dropdown-item" href="">个人中心</a></li>
+              <li><a class="dropdown-item" href="">编辑资料</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li class="px-3 py-2">
+                <form action="{{ route('logout') }}" method="POST">
+                  @csrf
+                  <button class="btn btn-danger w-100" type="submit">退出</button>
+                </form>
+              </li>
             </ul>
-            @if (Route::has('logout'))
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-              </form>
-            @endif
           </li>
         @endguest
       </ul>
