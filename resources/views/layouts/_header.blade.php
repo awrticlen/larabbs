@@ -25,13 +25,13 @@
               {{ Auth::user()->name }}
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="">个人中心</a></li>
-              <li><a class="dropdown-item" href="">编辑资料</a></li>
+              <li><a class="dropdown-item" href="{{ route('users.show', Auth::id()) }}">个人中心</a></li>
+              <li><a class="dropdown-item" href="{{ route('users.edit', Auth::id()) }}">编辑资料</a></li>
               <li><hr class="dropdown-divider"></li>
               <li class="px-3 py-2">
                 <form action="{{ route('logout') }}" method="POST">
                   @csrf
-                  <button class="btn btn-danger w-100" type="submit">退出</button>
+                  <button class="btn btn-danger w-100" type="submit" name="button">退出</button>
                 </form>
               </li>
             </ul>
