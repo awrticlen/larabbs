@@ -18,16 +18,17 @@
           </li>
         @else
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown"
-              role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="{{ asset('images/default-avatar.svg') }}"
-                class="rounded-circle me-2" width="30" height="30" alt="{{ Auth::user()->name }}">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+              data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="{{ Auth::user()->avatar }}" class="img-responsive img-circle" width="30px" height="30px">
               {{ Auth::user()->name }}
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="{{ route('users.show', Auth::id()) }}">个人中心</a></li>
               <li><a class="dropdown-item" href="{{ route('users.edit', Auth::id()) }}">编辑资料</a></li>
-              <li><hr class="dropdown-divider"></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
               <li class="px-3 py-2">
                 <form action="{{ route('logout') }}" method="POST">
                   @csrf
