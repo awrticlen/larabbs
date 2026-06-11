@@ -3,8 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Topic;
-use App\Models\User;
-use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,17 +14,14 @@ class TopicFactory extends Factory
 
     public function definition(): array
     {
+        $sentence = fake()->sentence();
+
         return [
-            'title' => fake()->sentence(3),
-            'body' => fake()->paragraphs(3, true),
-            'user_id' => User::factory(),
-            'category_id' => Category::query()->inRandomOrder()->value('id') ?? 1,
-            'reply_count' => fake()->numberBetween(0, 100),
-            'view_count' => fake()->numberBetween(0, 1000),
-            'last_reply_user_id' => 0,
-            'order' => 0,
-            'excerpt' => fake()->sentence(),
-            'slug' => fake()->unique()->slug(),
+            'title' => $sentence,
+            'body' => fake()->text(),
+            'excerpt' => $sentence,
+            'user_id' => fake()->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+            'category_id' => fake()->randomElement([1, 2, 3, 4]),
         ];
     }
 }
