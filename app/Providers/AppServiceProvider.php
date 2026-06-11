@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Listeners\EmailVerified;
+use App\Models\Topic;
+use App\Observers\TopicObserver;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
@@ -28,5 +30,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::guessPolicyNamesUsing(function (string $modelClass) {
             return 'App\\Policies\\' . class_basename($modelClass) . 'Policy';
         });
+
+        Topic::observe(TopicObserver::class);
     }
 }
