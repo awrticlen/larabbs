@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ConfirmPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\CategoriesController;
 
 Route::get('/', [PagesController::class, 'root'])->name('root');
 
@@ -38,3 +39,4 @@ Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify']
 Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 Route::resource('users', UsersController::class, ['only' => ['show', 'update', 'edit']]);
 Route::resource('topics', TopicsController::class);
+Route::resource('categories', CategoriesController::class, ['only' => ['show']]);
