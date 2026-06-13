@@ -32,5 +32,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Topic::observe(TopicObserver::class);
+        \Illuminate\Pagination\Paginator::useBootstrap();
     }
 }
