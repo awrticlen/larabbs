@@ -10,7 +10,7 @@
 
   <title>@yield('title', 'LaraBBS') - Laravel 进阶教程</title>
 
-  @vite(['resources/js/app.js'])
+  @yield('styles')
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -32,6 +32,9 @@
     @include('layouts._footer')
 
   </div>
+
+  @vite(['resources/js/app.js'])
+  @yield('scripts')
 
 </body>
 

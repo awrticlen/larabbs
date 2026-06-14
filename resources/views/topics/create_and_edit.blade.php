@@ -22,16 +22,16 @@
                         <form action="{{ route('topics.update', $topic) }}" method="POST">
                             @csrf
                             @method('PUT')
-                    @else
-                        <form action="{{ route('topics.store') }}" method="POST">
-                            @csrf
+                        @else
+                            <form action="{{ route('topics.store') }}" method="POST">
+                                @csrf
                     @endif
 
                     @include('shared._error')
 
                     <div class="mb-3">
-                        <input class="form-control" type="text" name="title"
-                            value="{{ old('title', $topic->title) }}" placeholder="请填写标题" required>
+                        <input class="form-control" type="text" name="title" value="{{ old('title', $topic->title) }}"
+                            placeholder="请填写标题" required>
                     </div>
 
                     <div class="mb-3">
@@ -49,8 +49,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <textarea name="body" class="form-control" id="editor" rows="6"
-                            placeholder="请填入至少三个字符的内容。" required>{{ old('body', $topic->body) }}</textarea>
+                        <textarea name="body" class="form-control" id="editor" rows="6" placeholder="请填入至少三个字符的内容。" required>{{ old('body', $topic->body) }}</textarea>
                     </div>
 
                     <div class="border rounded p-3 bg-light">
@@ -63,4 +62,25 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/simditor.css') }}">
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/module.js') }}"></script>
+    <script src="{{ asset('js/hotkeys.js') }}"></script>
+    <script src="{{ asset('js/uploader.js') }}"></script>
+    <script src="{{ asset('js/dompurify.min.js') }}"></script>
+    <script src="{{ asset('js/simditor.js') }}"></script>
+
+    <script>
+        $(function() {
+            new Simditor({
+                textarea: $('#editor'),
+            });
+        });
+    </script>
 @endsection
