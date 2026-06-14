@@ -41,3 +41,8 @@ function if_query($key, $value = null)
 
     return request()->query($key) == $value;
 }
+function make_excerpt($value, $length = 200)
+{
+    $excerpt = trim(preg_replace('/\r\n|\r|\n+/', ' ', strip_tags($value)));
+    return str()->limit($excerpt, $length);
+}

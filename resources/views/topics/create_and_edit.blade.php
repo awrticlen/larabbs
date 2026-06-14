@@ -1,92 +1,66 @@
 @extends('layouts.app')
 
-@section('title', $topic->exists ? 'Edit Topic #' . $topic->id : 'Create Topic')
+@section('title', $topic->exists ? '编辑话题' : '新建话题')
 
 @section('content')
-  <div class="card">
-    <div class="card-header">
-      Topic /
-      @if ($topic->exists)
-        Edit #{{ $topic->id }}
-      @else
-        Create
-      @endif
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="h4 mb-0">
+                        <i class="fa-regular fa-pen-to-square me-2"></i>
+                        @if ($topic->exists)
+                            编辑话题
+                        @else
+                            新建话题
+                        @endif
+                    </h2>
+
+                    <hr>
+
+                    @if ($topic->exists)
+                        <form action="{{ route('topics.update', $topic) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                    @else
+                        <form action="{{ route('topics.store') }}" method="POST">
+                            @csrf
+                    @endif
+
+                    @include('shared._error')
+
+                    <div class="mb-3">
+                        <input class="form-control" type="text" name="title"
+                            value="{{ old('title', $topic->title) }}" placeholder="请填写标题" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <select class="form-select" name="category_id" required>
+                            <option value="" disabled {{ old('category_id', $topic->category_id) ? '' : 'selected' }}>
+                                请选择分类
+                            </option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ old('category_id', $topic->category_id) == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <textarea name="body" class="form-control" id="editor" rows="6"
+                            placeholder="请填入至少三个字符的内容。" required>{{ old('body', $topic->body) }}</textarea>
+                    </div>
+
+                    <div class="border rounded p-3 bg-light">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-regular fa-floppy-disk me-2" aria-hidden="true"></i> 保存
+                        </button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-      @if ($topic->exists)
-        <form action="{{ route('topics.update', $topic) }}" method="POST">
-          @csrf
-          @method('PUT')
-      @else
-        <form action="{{ route('topics.store') }}" method="POST">
-          @csrf
-      @endif
-
-      @include('common.error')
-
-      <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input type="text" name="title" id="title" class="form-control"
-          value="{{ old('title', $topic->title) }}">
-      </div>
-
-      <div class="mb-3">
-        <label for="body" class="form-label">Body</label>
-        <textarea name="body" id="body" class="form-control" rows="5">{{ old('body', $topic->body) }}</textarea>
-      </div>
-
-      <div class="mb-3">
-        <label for="user_id" class="form-label">User Id</label>
-        <input type="number" name="user_id" id="user_id" class="form-control"
-          value="{{ old('user_id', $topic->user_id) }}">
-      </div>
-
-      <div class="mb-3">
-        <label for="category_id" class="form-label">Category Id</label>
-        <input type="number" name="category_id" id="category_id" class="form-control"
-          value="{{ old('category_id', $topic->category_id) }}">
-      </div>
-
-      <div class="mb-3">
-        <label for="reply_count" class="form-label">Reply Count</label>
-        <input type="number" name="reply_count" id="reply_count" class="form-control"
-          value="{{ old('reply_count', $topic->reply_count ?? 0) }}">
-      </div>
-
-      <div class="mb-3">
-        <label for="view_count" class="form-label">View Count</label>
-        <input type="number" name="view_count" id="view_count" class="form-control"
-          value="{{ old('view_count', $topic->view_count ?? 0) }}">
-      </div>
-
-      <div class="mb-3">
-        <label for="last_reply_user_id" class="form-label">Last Reply User Id</label>
-        <input type="number" name="last_reply_user_id" id="last_reply_user_id" class="form-control"
-          value="{{ old('last_reply_user_id', $topic->last_reply_user_id ?? 0) }}">
-      </div>
-
-      <div class="mb-3">
-        <label for="order" class="form-label">Order</label>
-        <input type="number" name="order" id="order" class="form-control"
-          value="{{ old('order', $topic->order ?? 0) }}">
-      </div>
-
-      <div class="mb-3">
-        <label for="excerpt" class="form-label">Excerpt</label>
-        <textarea name="excerpt" id="excerpt" class="form-control" rows="3">{{ old('excerpt', $topic->excerpt) }}</textarea>
-      </div>
-
-      <div class="mb-3">
-        <label for="slug" class="form-label">Slug</label>
-        <input type="text" name="slug" id="slug" class="form-control"
-          value="{{ old('slug', $topic->slug) }}">
-      </div>
-
-      <div class="d-flex gap-2">
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a class="btn btn-secondary" href="{{ route('topics.index') }}">&larr; Back</a>
-      </div>
-      </form>
-    </div>
-  </div>
 @endsection
