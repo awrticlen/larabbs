@@ -10,11 +10,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link {{ active_class(if_route('topics.index')) }}" href="{{ route('topics.index') }}">话题</a></li>
-                <li class="nav-item"><a class="nav-link {{ category_nav_active(1) }}" href="{{ route('categories.show', 1) }}">分享</a></li>
-                <li class="nav-item"><a class="nav-link {{ category_nav_active(2) }}" href="{{ route('categories.show', 2) }}">教程</a></li>
-                <li class="nav-item"><a class="nav-link {{ category_nav_active(3) }}" href="{{ route('categories.show', 3) }}">问答</a></li>
-                <li class="nav-item"><a class="nav-link {{ category_nav_active(4) }}" href="{{ route('categories.show', 4) }}">公告</a></li>
+                <li class="nav-item"><a class="nav-link {{ active_class(if_route('topics.index')) }}"
+                        href="{{ route('topics.index') }}">话题</a></li>
+                <li class="nav-item"><a class="nav-link {{ category_nav_active(1) }}"
+                        href="{{ route('categories.show', 1) }}">分享</a></li>
+                <li class="nav-item"><a class="nav-link {{ category_nav_active(2) }}"
+                        href="{{ route('categories.show', 2) }}">教程</a></li>
+                <li class="nav-item"><a class="nav-link {{ category_nav_active(3) }}"
+                        href="{{ route('categories.show', 3) }}">问答</a></li>
+                <li class="nav-item"><a class="nav-link {{ category_nav_active(4) }}"
+                        href="{{ route('categories.show', 4) }}">公告</a></li>
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
@@ -29,20 +34,34 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="{{ Auth::user()->avatar }}" class="img-responsive img-circle" width="30px"
-                                height="30px">
+                            <img src="{{ Auth::user()->avatar }}" class="rounded-circle" width="30" height="30"
+                                alt="{{ Auth::user()->name }}">
                             {{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('users.show', Auth::id()) }}">个人中心</a></li>
-                            <li><a class="dropdown-item" href="{{ route('users.edit', Auth::id()) }}">编辑资料</a></li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('users.show', Auth::id()) }}">
+                                    <i class="far fa-user me-2"></i>
+                                    个人中心
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('users.edit', Auth::id()) }}">
+                                    <i class="far fa-edit me-2"></i>
+                                    编辑资料
+                                </a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li class="px-3 py-2">
-                                <form action="{{ route('logout') }}" method="POST">
+                                <form action="{{ route('logout') }}" method="POST"
+                                    onsubmit="return confirm('您确定要退出吗？');">
                                     @csrf
-                                    <button class="btn btn-danger w-100" type="submit" name="button">退出</button>
+                                    <button class="btn btn-danger w-100" type="submit">退出</button>
                                 </form>
                             </li>
                         </ul>

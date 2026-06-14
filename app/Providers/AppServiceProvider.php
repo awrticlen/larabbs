@@ -6,6 +6,7 @@ use App\Listeners\EmailVerified;
 use App\Models\Topic;
 use App\Observers\TopicObserver;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -32,6 +33,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Topic::observe(TopicObserver::class);
-        \Illuminate\Pagination\Paginator::useBootstrap();
+        Paginator::useBootstrapFive();
     }
 }

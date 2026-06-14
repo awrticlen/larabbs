@@ -4,8 +4,9 @@
             <li class="d-flex">
                 <div class="">
                     <a href="{{ route('users.show', [$topic->user_id]) }}">
-                        <img class="media-object img-thumbnail mr-3" style="width: 52px; height: 52px;"
-                            src="{{ $topic->user->avatar }}" title="{{ $topic->user->name }}">
+                        <img class="img-thumbnail me-3" style="width: 52px; height: 52px;"
+                            src="{{ $topic->user->avatar }}" title="{{ $topic->user->name }}"
+                            alt="{{ $topic->user->name }}">
                     </a>
                 </div>
 
@@ -20,7 +21,7 @@
                         </a>
                     </div>
 
-                    <small class="media-body meta text-secondary">
+                    <small class="meta text-secondary">
 
                         <a class="text-secondary" href="{{ route('categories.show', $topic->category_id) }}"
                             title="{{ $topic->category->name }}">
