@@ -2,39 +2,39 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- CSRF Token -->
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>@yield('title', 'LaraBBS') - Laravel 进阶教程</title>
-
-  @yield('styles')
+    <title>@yield('title', 'LaraBBS') - Laravel 进阶教程</title>
+    <meta name="description" content="@yield('description', 'LaraBBS 爱好者社区')" />
+    @yield('styles')
 </head>
 
 <body class="d-flex flex-column min-vh-100">
 
-  <div id="app" class="{{ route_class() }}-page d-flex flex-column flex-grow-1">
+    <div id="app" class="{{ route_class() }}-page d-flex flex-column flex-grow-1">
 
-    @include('layouts._header')
+        @include('layouts._header')
 
-    <main class="flex-grow-1">
-      <div class="container py-4">
+        <main class="flex-grow-1">
+            <div class="container py-4">
 
-        @include('layouts._messages')
+                @include('layouts._messages')
 
-        @yield('content')
+                @yield('content')
 
-      </div>
-    </main>
+            </div>
+        </main>
 
-    @include('layouts._footer')
+        @include('layouts._footer')
 
-  </div>
+    </div>
 
-  @vite(['resources/js/app.js'])
-  @yield('scripts')
+    @vite(['resources/js/app.js'])
+    @yield('scripts')
 
 </body>
 

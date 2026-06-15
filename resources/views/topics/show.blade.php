@@ -1,41 +1,62 @@
 @extends('layouts.app')
 
-@section('title', 'Topic #' . $topic->id)
+@section('title', $topic->title)
+@section('description', $topic->excerpt)
 
 @section('content')
-  <div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
-      <span>Topic / Show #{{ $topic->id }}</span>
-      <div>
-        <a class="btn btn-sm btn-secondary" href="{{ route('topics.index') }}">&larr; Back</a>
-        @auth
-          <a class="btn btn-sm btn-primary" href="{{ route('topics.edit', $topic) }}">Edit</a>
-        @endauth
-      </div>
+
+    <div class="row">
+
+        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs author-info">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="text-center">
+                        作者：{{ $topic->user->name }}
+                    </div>
+                    <hr>
+                    <div class="media">
+                        <div align="center">
+                            <a href="{{ route('users.show', $topic->user->id) }}">
+                                <img class="thumbnail img-fluid" src="{{ $topic->user->avatar }}" width="300px"
+                                    height="300px">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 topic-content">
+            <div class="card ">
+                <div class="card-body">
+                    <h1 class="text-center mt-3 mb-3">
+                        {{ $topic->title }}
+                    </h1>
+
+                    <div class="article-meta text-center text-secondary">
+                        {{ $topic->created_at->diffForHumans() }}
+                        ⋅
+                        <i class="far fa-comment"></i>
+                        {{ $topic->reply_count }}
+                    </div>
+
+                    <div class="topic-body mt-4 mb-4">
+                        {!! $topic->body !!}
+                    </div>
+
+                    <div class="operate">
+                        <hr>
+                        <a href="{{ route('topics.edit', $topic->id) }}" class="btn btn-outline-secondary btn-sm"
+                            role="button">
+                            <i class="far fa-edit"></i> 编辑
+                        </a>
+                        <a href="#" class="btn btn-outline-secondary btn-sm" role="button">
+                            <i class="far fa-trash-alt"></i> 删除
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-      <dl class="row mb-0">
-        <dt class="col-sm-3">Title</dt>
-        <dd class="col-sm-9">{{ $topic->title }}</dd>
-        <dt class="col-sm-3">Body</dt>
-        <dd class="col-sm-9">{{ $topic->body }}</dd>
-        <dt class="col-sm-3">User Id</dt>
-        <dd class="col-sm-9">{{ $topic->user_id }}</dd>
-        <dt class="col-sm-3">Category Id</dt>
-        <dd class="col-sm-9">{{ $topic->category_id }}</dd>
-        <dt class="col-sm-3">Reply Count</dt>
-        <dd class="col-sm-9">{{ $topic->reply_count }}</dd>
-        <dt class="col-sm-3">View Count</dt>
-        <dd class="col-sm-9">{{ $topic->view_count }}</dd>
-        <dt class="col-sm-3">Last Reply User Id</dt>
-        <dd class="col-sm-9">{{ $topic->last_reply_user_id }}</dd>
-        <dt class="col-sm-3">Order</dt>
-        <dd class="col-sm-9">{{ $topic->order }}</dd>
-        <dt class="col-sm-3">Excerpt</dt>
-        <dd class="col-sm-9">{{ $topic->excerpt }}</dd>
-        <dt class="col-sm-3">Slug</dt>
-        <dd class="col-sm-9">{{ $topic->slug }}</dd>
-      </dl>
-    </div>
-  </div>
-@endsection
+@stop
