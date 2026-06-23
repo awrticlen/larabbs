@@ -38,5 +38,7 @@ Route::get('email/verify', [VerificationController::class, 'show'])->name('verif
 Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 Route::resource('users', UsersController::class, ['only' => ['show', 'update', 'edit']]);
-Route::resource('topics', TopicsController::class);
+Route::resource('topics', TopicsController::class, ['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);
 Route::resource('categories', CategoriesController::class, ['only' => ['show']]);
+
+Route::get('topics/{topic}/{slug?}', [TopicsController::class, 'show'])->name('topics.show');

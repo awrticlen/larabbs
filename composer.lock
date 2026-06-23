@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "41b45cd00e62c2276a5f12bc19127834",
+    "content-hash": "146e960c69c2f786069cb4f60b8d1755",
     "packages": [
         {
             "name": "brick/math",
@@ -2551,6 +2551,68 @@
                 "source": "https://github.com/nunomaduro/termwind/tree/v2.4.0"
             },
             "time": "2026-02-16T23:10:27+00:00"
+        },
+        {
+            "name": "overtrue/pinyin",
+            "version": "6.0.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://mirrors.cloud.tencent.com/repository/composer/overtrue/pinyin/6.0.1/overtrue-pinyin-6.0.1.zip",
+                "reference": "d79364f289f5ccdabdd3142556d4254c7574f87c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "brainmaestro/composer-git-hooks": "^3.0",
+                "laravel/pint": "^1.10",
+                "nunomaduro/termwind": "^1.0 || ^2.0",
+                "phpunit/phpunit": "^10.5 || ^11.5 || ^12.0"
+            },
+            "bin": [
+                "bin/pinyin"
+            ],
+            "type": "library",
+            "extra": {
+                "hooks": {
+                    "pre-push": [
+                        "composer pint",
+                        "composer test"
+                    ],
+                    "pre-commit": [
+                        "composer pint",
+                        "composer test"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Overtrue\\Pinyin\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "anzhengchao@gmail.com",
+                    "homepage": "http://github.com/overtrue"
+                }
+            ],
+            "description": "Chinese to pinyin translator.",
+            "homepage": "https://github.com/overtrue/pinyin",
+            "keywords": [
+                "Chinese",
+                "Pinyin",
+                "cn2pinyin"
+            ],
+            "support": {
+                "issues": "https://github.com/overtrue/pinyin/issues",
+                "source": "https://github.com/overtrue/pinyin/tree/6.0.1"
+            },
+            "time": "2026-03-06T13:15:43+00:00"
         },
         {
             "name": "phpoption/phpoption",
