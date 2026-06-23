@@ -21,5 +21,5 @@
 
 {{-- 分页 --}}
 <div class="mt-4 pt-1">
-  {!! $topics->render() !!}
+  {{ $topics->links() }}
 </div>

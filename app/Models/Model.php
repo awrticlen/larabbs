@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Model extends EloquentModel
 {
+    public function scopeRecent($query)
+    {
+        return $query->orderBy('id', 'desc');
+    }
+
     public function scopeLast($query)
     {
         return $query->orderBy('id', 'desc');
@@ -14,9 +19,5 @@ class Model extends EloquentModel
     public function scopeOrdered($query)
     {
         return $query->orderBy('order', 'desc');
-    }
-    public function replies()
-    {
-        return $this->hasMany(Reply::class);
     }
 }
