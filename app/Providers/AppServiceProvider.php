@@ -10,6 +10,8 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Reply;
+use App\Observers\ReplyObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Topic::observe(TopicObserver::class);
+        Reply::observe(ReplyObserver::class);
         Paginator::useBootstrapFive();
     }
 }

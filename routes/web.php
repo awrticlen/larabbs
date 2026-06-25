@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ConfirmPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\RepliesController;
 
 Route::get('/', [PagesController::class, 'root'])->name('root');
 
@@ -40,5 +41,5 @@ Route::post('email/resend', [VerificationController::class, 'resend'])->name('ve
 Route::resource('users', UsersController::class, ['only' => ['show', 'update', 'edit']]);
 Route::resource('topics', TopicsController::class, ['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);
 Route::resource('categories', CategoriesController::class, ['only' => ['show']]);
-
+Route::resource('replies', RepliesController::class, ['only' => ['store', 'destroy']]);
 Route::get('topics/{topic}/{slug?}', [TopicsController::class, 'show'])->name('topics.show');
