@@ -36,6 +36,12 @@
                             <i class="fa-solid fa-plus"></i>
                         </a>
                     </li>
+                    <li class="nav-item notification-badge">
+                        <a class="nav-link ms-3 me-3 badge bg-secondary rounded-pill badge-{{ Auth::user()->notification_count > 0 ? 'hint' : 'secondary' }} text-white"
+                            href="{{ route('notifications.index') }}">
+                            {{ Auth::user()->notification_count }}
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -63,8 +69,7 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li class="px-3 py-2">
-                                <form action="{{ route('logout') }}" method="POST"
-                                    onsubmit="return confirm('您确定要退出吗？');">
+                                <form action="{{ route('logout') }}" method="POST" onsubmit="return confirm('您确定要退出吗？');">
                                     @csrf
                                     <button class="btn btn-danger w-100" type="submit">退出</button>
                                 </form>
