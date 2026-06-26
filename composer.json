@@ -20,7 +20,8 @@
         "mews/purifier": "^3.4",
         "overtrue/pinyin": "^6.0",
         "predis/predis": "^3.5",
-        "spatie/laravel-permission": "^8.0"
+        "spatie/laravel-permission": "^8.0",
+        "viacreative/sudo-su": "^1.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.7",

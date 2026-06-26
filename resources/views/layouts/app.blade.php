@@ -33,6 +33,11 @@
 
     </div>
 
+    @if (app()->isLocal())
+        @include('sudosu::user-selector')
+    @endif
+
+    <!-- Scripts -->
     @vite(['resources/js/app.js'])
     @yield('scripts')
 
