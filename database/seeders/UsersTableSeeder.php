@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
         $user->email = 'summer@example.com';
         $user->avatar = config('app.url') . '/images/default-avatar.svg';
         $user->save();
-        // 初始化用户角色，将 1 号用户指派为『站长』
+        // 将第一个用户作为后台管理员，赋予『站长』角色。
         $user->assignRole('Founder');
 
         // 将 2 号用户指派为『管理员』

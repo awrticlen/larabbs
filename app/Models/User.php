@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,14 +17,20 @@ use Spatie\Permission\Traits\HasRoles;
 
 #[Fillable(['name', 'email', 'password', 'introduction', 'avatar'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, MustVerifyEmailTrait, HasRoles;
+    use HasFactory, MustVerifyEmailTrait, HasRoles;
 
     use Notifiable {
         notify as protected laravelNotify;
     }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->can('manage_contents');
+    }
+
     public function notify($instance)
     {
         // 如果要通知的人是当前用户,且不是在验证邮箱，就不必通知了！

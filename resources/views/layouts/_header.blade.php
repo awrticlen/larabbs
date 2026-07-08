@@ -50,6 +50,17 @@
                             {{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            @can('manage_contents')
+                                <li>
+                                    <a class="dropdown-item" href="{{ url('/admin') }}">
+                                        <i class="fas fa-tachometer-alt me-2"></i>
+                                        管理后台
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                            @endcan
                             <li>
                                 <a class="dropdown-item" href="{{ route('users.show', Auth::id()) }}">
                                     <i class="far fa-user me-2"></i>
