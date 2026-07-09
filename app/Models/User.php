@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
 
 #[Fillable(['name', 'email', 'password', 'introduction', 'avatar'])]
@@ -29,6 +30,17 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->can('manage_contents');
+    }
+
+    public function setAvatarAttribute(?string $path): void
+    {
+        if (blank($path) || Str::startsWith($path, ['http://', 'https://'])) {
+            $this->attributes['avatar'] = $path;
+
+            return;
+        }
+
+        $this->attributes['avatar'] = rtrim(config('filesystems.disks.public.url'), '/') . '/' . ltrim($path, '/');
     }
 
     public function notify($instance)
