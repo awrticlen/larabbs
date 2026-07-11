@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Listeners\EmailVerified;
+use App\Models\Link;
 use App\Models\Topic;
+use App\Observers\LinkObserver;
 use App\Observers\TopicObserver;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Pagination\Paginator;
@@ -38,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
 
         Topic::observe(TopicObserver::class);
         Reply::observe(ReplyObserver::class);
+        Link::observe(LinkObserver::class);
         Paginator::useBootstrapFive();
     }
 }
