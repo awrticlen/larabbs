@@ -34,7 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->navigationGroups([
                 '内容管理',
                 '用户与权限',
-                '系统设置',
+                '站点管理',
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

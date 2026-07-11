@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\SiteSetting;
 use Illuminate\Support\Facades\Route;
 
 function route_class()
@@ -41,6 +42,17 @@ function if_query($key, $value = null)
 
     return request()->query($key) == $value;
 }
+function setting(string $key, mixed $default = '', string $settingName = 'site'): mixed
+{
+    if ($settingName !== 'site') {
+        return $default;
+    }
+
+    $value = SiteSetting::values()[$key] ?? null;
+
+    return blank($value) ? $default : $value;
+}
+
 function make_excerpt($value, $length = 200)
 {
     $excerpt = trim(preg_replace('/\r\n|\r|\n+/', ' ', strip_tags($value)));
