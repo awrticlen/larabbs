@@ -10,4 +10,13 @@ class PagesController extends Controller
     {
         return view('pages.root');
     }
+
+    public function permissionDenied()
+    {
+        if (auth()->user()?->can('manage_contents')) {
+            return redirect()->to('/admin');
+        }
+
+        return view('pages.permission_denied');
+    }
 }
