@@ -14,7 +14,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\RepliesController;
 use App\Http\Controllers\NotificationsController;
 
-Route::get('/', [PagesController::class, 'root'])->name('root');
+Route::get('/', [TopicsController::class, 'index'])->name('root');
 Route::get('permission-denied', [PagesController::class, 'permissionDenied'])->name('permission-denied');
 
 // 用户身份验证相关的路由
