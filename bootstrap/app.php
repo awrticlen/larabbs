@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectUsersTo('/');
 
         $middleware->appendToGroup('web', \App\Http\Middleware\EnsureEmailIsVerified::class);
+        $middleware->appendToGroup('web', \App\Http\Middleware\RecordLastActivedTime::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

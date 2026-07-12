@@ -21,7 +21,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, MustVerifyEmailTrait, HasRoles, Traits\ActiveUserHelper;
+    use HasFactory, MustVerifyEmailTrait, HasRoles, Traits\ActiveUserHelper, Traits\LastActivedAtHelper;
 
     use Notifiable {
         notify as protected laravelNotify;

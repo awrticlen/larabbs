@@ -9,3 +9,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('larabbs:calculate-active-user')->hourly();
+Schedule::command('larabbs:sync-user-actived-at')->dailyAt('00:00');
