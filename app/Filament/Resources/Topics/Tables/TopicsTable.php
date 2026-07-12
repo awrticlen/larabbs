@@ -122,7 +122,7 @@ class TopicsTable
         return User::query()
             ->where(fn (Builder $query): Builder => $query
                 ->where('name', 'like', "%{$search}%")
-                ->when(is_numeric($search), fn (Builder $query): Builder => $query->orWhereKey($search)))
+                ->when(is_numeric($search), fn (Builder $query): Builder => $query->orWhere('id', $search)))
             ->limit(50)
             ->get()
             ->mapWithKeys(fn (User $user): array => [$user->id => "{$user->id} {$user->name}"])

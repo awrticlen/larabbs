@@ -113,7 +113,7 @@ class RepliesTable
         return User::query()
             ->where(fn (Builder $query): Builder => $query
                 ->where('name', 'like', "%{$search}%")
-                ->when(is_numeric($search), fn (Builder $query): Builder => $query->orWhereKey($search)))
+                ->when(is_numeric($search), fn (Builder $query): Builder => $query->orWhere('id', $search)))
             ->limit(50)
             ->get()
             ->mapWithKeys(fn (User $user): array => [$user->id => "{$user->id} {$user->name}"])
@@ -132,7 +132,7 @@ class RepliesTable
         return Topic::query()
             ->where(fn (Builder $query): Builder => $query
                 ->where('title', 'like', "%{$search}%")
-                ->when(is_numeric($search), fn (Builder $query): Builder => $query->orWhereKey($search)))
+                ->when(is_numeric($search), fn (Builder $query): Builder => $query->orWhere('id', $search)))
             ->limit(50)
             ->get()
             ->mapWithKeys(fn (Topic $topic): array => [$topic->id => "{$topic->id} {$topic->title}"])
