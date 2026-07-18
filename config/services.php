@@ -39,4 +39,27 @@ return [
         'key'   => env('BAIDU_TRANSLATE_KEY'),
     ],
 
+    'easy-sms' => [
+        'timeout' => 10.0,
+
+        'default' => [
+            'strategy' => \Overtrue\EasySms\Strategies\OrderStrategy::class,
+            'gateways' => [
+                'aliyun',
+            ],
+        ],
+
+        'gateways' => [
+            'errorlog' => [
+                'file' => storage_path('logs/easy-sms.log'),
+            ],
+
+            'aliyun' => [
+                'access_key_id' => env('SMS_ALIYUN_ACCESS_KEY_ID'),
+                'access_key_secret' => env('SMS_ALIYUN_ACCESS_KEY_SECRET'),
+                'sign_name' => '永川区艺曦码途电子商务',
+            ],
+        ],
+    ],
+
 ];
