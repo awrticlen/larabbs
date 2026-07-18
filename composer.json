@@ -21,6 +21,7 @@
         "overtrue/laravel-easy-sms": "^4.0",
         "overtrue/pinyin": "^6.0",
         "predis/predis": "^3.5",
+        "propaganistas/laravel-phone": "^6.0",
         "spatie/laravel-permission": "^8.0",
         "viacreative/sudo-su": "^1.1"
     },

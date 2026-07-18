@@ -14,7 +14,6 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Overtrue\EasySms\EasySms;
 use App\Models\Reply;
 use App\Observers\ReplyObserver;
 
@@ -28,8 +27,6 @@ class AppServiceProvider extends ServiceProvider
         if (app()->isLocal()) {
             $this->app->register(\VIACreative\SudoSu\ServiceProvider::class);
         }
-
-        $this->app->alias(EasySms::class, 'easysms');
     }
 
     /**

@@ -118,6 +118,7 @@ return [
         'symbols'       => ':attribute 必须至少包含一个符号。',
         'uncompromised' => '给定的 :attribute 出现在已经泄漏的密码中。请选择不同的 :attribute。',
     ],
+    'phone'                  => ':attribute 格式不正确。',
     'present'                => ':attribute 必须存在。',
     'present_if'             => '当 :other 等于 :value 时，必须存在 :attribute 字段。',
     'present_unless'         => '除非 :other 等于 :value，否则 :attribute 字段必须存在。',
