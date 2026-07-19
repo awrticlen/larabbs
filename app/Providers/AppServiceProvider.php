@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Reply;
 use App\Observers\ReplyObserver;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -45,5 +46,6 @@ class AppServiceProvider extends ServiceProvider
         Link::observe(LinkObserver::class);
         User::observe(UserObserver::class);
         Paginator::useBootstrapFive();
+        JsonResource::withoutWrapping();
     }
 }
