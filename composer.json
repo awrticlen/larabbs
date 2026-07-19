@@ -20,6 +20,7 @@
         "mews/captcha": "^3.5",
         "mews/purifier": "^3.4",
         "overtrue/laravel-easy-sms": "^4.0",
+        "overtrue/laravel-socialite": "^4.1",
         "overtrue/pinyin": "^6.0",
         "predis/predis": "^3.5",
         "propaganistas/laravel-phone": "^6.0",
