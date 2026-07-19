@@ -6,24 +6,38 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
 use Overtrue\EasySms\EasySms;
 use App\Http\Requests\Api\VerificationCodeRequest;
+use Illuminate\Auth\AuthenticationException;
 
 class VerificationCodesController extends Controller
 {
     public function store(VerificationCodeRequest $request, EasySms $easySms)
     {
-        $phone = $request->phone;
+        $captchaCacheKey = 'captcha_' . $request->captcha_key;
+        $captchaData = Cache::get($captchaCacheKey);
+
+        if (!$captchaData) {
+            abort(403, '图片验证码已失效');
+        }
+
+        if (!hash_equals((string) $captchaData['code'], $request->captcha_code)) {
+            // 验证错误就清除缓存，避免重复尝试。
+            Cache::forget($captchaCacheKey);
+            throw new AuthenticationException('验证码错误');
+        }
+
+        $phone = $captchaData['phone'];
 
         if (! app()->environment('production')) {
             $code = '1234';
         } else {
             // 生成4位随机数，左侧补0
-            $code = str_pad(random_int(1, 9999), 4, 0, STR_PAD_LEFT);
+            $code = str_pad(random_int(1, 9999), 4, '0', STR_PAD_LEFT);
 
             try {
                 $easySms->send($phone, [
                     'template' => config('services.easy-sms.gateways.aliyun.templates.register'),
                     'data' => [
-                        'code' => $code
+                        'code' => $code,
                     ],
                 ]);
             } catch (\Overtrue\EasySms\Exceptions\NoGatewayAvailableException $exception) {
@@ -32,14 +46,17 @@ class VerificationCodesController extends Controller
             }
         }
 
-        $key = Str::random(15);
-        $cacheKey = 'verificationCode_' . $key;
+        $smsKey = Str::random(15);
+        $smsCacheKey = 'verificationCode_' . $smsKey;
         $expiredAt = now()->addMinutes(5);
+
         // 缓存验证码 5 分钟过期。
-        Cache::put($cacheKey, ['phone' => $phone, 'code' => $code], $expiredAt);
+        Cache::put($smsCacheKey, ['phone' => $phone, 'code' => $code], $expiredAt);
+        // 短信验证码发送成功后，清除图片验证码缓存。
+        Cache::forget($captchaCacheKey);
 
         return response()->json([
-            'key' => $key,
+            'key' => $smsKey,
             'expired_at' => $expiredAt->toDateTimeString(),
         ])->setStatusCode(201);
     }
