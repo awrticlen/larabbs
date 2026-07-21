@@ -27,7 +27,12 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
     'weixin_openid',
     'weixin_unionid'
 ])]
-#[Hidden(['password', 'remember_token'])]
+#[Hidden([
+    'password',
+    'remember_token',
+    'weixin_openid',
+    'weixin_unionid'
+])]
 class User extends Authenticatable implements MustVerifyEmail, FilamentUser, JWTSubject
 {
     /** @use HasFactory<UserFactory> */
