@@ -20,6 +20,14 @@ return [
 
     'default' => env('LOG_CHANNEL', 'stack'),
 
+    'query' => [
+        'enabled' => env('LOG_QUERY', false),
+        'slower_than' => 0,
+        'trigger' => env('QUERY_LOG_TRIGGER'),
+        'except' => [],
+        'channel' => env('LOG_CHANNEL', 'stack'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Deprecations Log Channel

@@ -26,6 +26,7 @@
         "predis/predis": "^3.5",
         "propaganistas/laravel-phone": "^6.0",
         "spatie/laravel-permission": "^8.0",
+        "spatie/laravel-query-builder": "^7.3",
         "viacreative/sudo-su": "^1.1"
     },
     "require-dev": {
@@ -38,6 +39,7 @@
         "laravel/pint": "^1.27",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
+        "overtrue/laravel-query-logger": "^5.1",
         "phpunit/phpunit": "^12.5.12"
     },
     "autoload": {

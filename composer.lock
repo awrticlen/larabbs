@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c96048a95eca552996c338c5b0110c10",
+    "content-hash": "cfaff559f2d812dd46d5b595df88c2e1",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -6260,6 +6260,68 @@
             "time": "2026-05-30T19:30:22+00:00"
         },
         {
+            "name": "spatie/laravel-query-builder",
+            "version": "7.3.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://mirrors.cloud.tencent.com/repository/composer/spatie/laravel-query-builder/7.3.0/spatie-laravel-query-builder-7.3.0.zip",
+                "reference": "3554c005f778d9da89d44b9895d2cca149110fea",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^12.0|^13.0",
+                "illuminate/http": "^12.0|^13.0",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.11"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "larastan/larastan": "^3.3",
+                "mockery/mockery": "^1.4",
+                "orchestra/testbench": "^10.0|^11.0",
+                "pestphp/pest": "^4.0",
+                "phpunit/phpunit": "^12.0",
+                "spatie/invade": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\QueryBuilder\\QueryBuilderServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\QueryBuilder\\": "src",
+                    "Spatie\\QueryBuilder\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Vanderbist",
+                    "email": "alex@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily build Eloquent queries from API requests",
+            "homepage": "https://github.com/spatie/laravel-query-builder",
+            "keywords": [
+                "laravel-query-builder",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-query-builder/issues",
+                "source": "https://github.com/spatie/laravel-query-builder"
+            },
+            "time": "2026-05-02T11:22:31+00:00"
+        },
+        {
             "name": "spatie/shiki-php",
             "version": "2.4.0",
             "dist": {
@@ -10913,6 +10975,61 @@
                 "source": "https://github.com/nunomaduro/collision"
             },
             "time": "2026-04-21T14:04:20+00:00"
+        },
+        {
+            "name": "overtrue/laravel-query-logger",
+            "version": "v5.1.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://mirrors.cloud.tencent.com/repository/composer/overtrue/laravel-query-logger/v5.1.0/overtrue-laravel-query-logger-v5.1.0.zip",
+                "reference": "b09af8efab57b48b6d5ed3d49096398600615c5d",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^12.0|^13.0"
+            },
+            "require-dev": {
+                "brainmaestro/composer-git-hooks": "dev-master",
+                "laravel/pint": "^1.5",
+                "orchestra/testbench": "^11.0",
+                "phpunit/phpunit": "^12"
+            },
+            "type": "library",
+            "extra": {
+                "hooks": {
+                    "pre-push": [
+                        "composer check-style"
+                    ],
+                    "pre-commit": [
+                        "composer check-style"
+                    ]
+                },
+                "laravel": {
+                    "providers": [
+                        "Overtrue\\LaravelQueryLogger\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Overtrue\\LaravelQueryLogger\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "anzhengchao@gmail.com"
+                }
+            ],
+            "description": "A dev tool to log all queries for laravel application.",
+            "support": {
+                "issues": "https://github.com/overtrue/laravel-query-logger/issues",
+                "source": "https://github.com/overtrue/laravel-query-logger/tree/v5.1.0"
+            },
+            "time": "2026-03-21T14:24:59+00:00"
         },
         {
             "name": "phar-io/manifest",
