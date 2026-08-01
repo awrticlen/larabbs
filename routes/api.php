@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ImagesController;
 use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\TopicsController;
 use App\Http\Controllers\Api\RepliesController;
+use App\Http\Controllers\Api\NotificationsController;
 
 
 Route::prefix('v1')
@@ -90,6 +91,10 @@ Route::prefix('v1')
                     Route::apiResource('topics.replies', RepliesController::class)->only([
                         'store',
                         'destroy'
+                    ]);
+                    // 通知列表
+                    Route::apiResource('notifications', NotificationsController::class)->only([
+                        'index'
                     ]);
                 });
             });
