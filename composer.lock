@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfaff559f2d812dd46d5b595df88c2e1",
+    "content-hash": "6bd6ebb9c66449595b4e3ead43903e0e",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -2363,6 +2363,47 @@
                 "source": "https://github.com/Intervention/image-laravel/tree/4.0.0"
             },
             "time": "2026-03-28T07:12:58+00:00"
+        },
+        {
+            "name": "jpush/jpush",
+            "version": "v3.7.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://mirrors.cloud.tencent.com/repository/composer/jpush/jpush/v3.7.0/jpush-jpush-v3.7.0.zip",
+                "reference": "d3a9697082171b5320d7839942e71e8a612ff989",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JPush\\": "src/JPush/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "JPush",
+                    "email": "support@jpush.cn",
+                    "homepage": "https://www.jpush.cn/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "JPush API PHP Client",
+            "homepage": "https://github.com/jpush/jpush-api-php-client",
+            "support": {
+                "issues": "https://github.com/jpush/jpush-api-php-client/issues",
+                "source": "https://github.com/jpush/jpush-api-php-client/tree/v3.7.0"
+            },
+            "time": "2024-06-17T10:36:55+00:00"
         },
         {
             "name": "kirschbaum-development/eloquent-power-joins",
