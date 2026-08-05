@@ -15,7 +15,6 @@ use App\Http\Controllers\Api\LinksController;
 
 
 Route::prefix('v1')
-    ->namespace('Api')
     ->middleware('change-locale')
     ->name('api.v1.')
     ->group(function () {

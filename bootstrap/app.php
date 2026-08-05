@@ -5,6 +5,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -28,7 +29,11 @@ return Application::configure(basePath: dirname(__DIR__))
             fn (Request $request) => $request->is('api/*'),
         );
 
-        $exceptions->respond(function (JsonResponse $response, \Throwable $e): JsonResponse {
+        $exceptions->respond(function (Response $response, \Throwable $e): Response {
+            if (! $response instanceof JsonResponse) {
+                return $response;
+            }
+
             $data = $response->getData(true);
 
             if (is_array($data) && ! array_key_exists('code', $data)) {
