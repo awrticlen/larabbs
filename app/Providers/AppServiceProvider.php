@@ -17,6 +17,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\Reply;
 use App\Observers\ReplyObserver;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -47,5 +48,12 @@ class AppServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Paginator::useBootstrapFive();
         JsonResource::withoutWrapping();
+        // 增加密码模式
+        Passport::enablePasswordGrant();
+
+        // access_token 过期时间
+        Passport::tokensExpireIn(now()->addDays(15));
+        // refreshTokens 过期时间
+        Passport::refreshTokensExpireIn(now()->addDays(30));
     }
 }

@@ -2,67 +2,30 @@
 
 namespace App\Models;
 
-use Database\Factories\UserFactory;
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Support\Str;
 
-#[Fillable([
-    'name',
-    'phone',
-    'email',
-    'password',
-    'introduction',
-    'avatar',
-    'weixin_openid',
-    'weixin_unionid',
-    'registration_id'
-])]
-#[Hidden([
-    'password',
-    'remember_token',
-    'weixin_openid',
-    'weixin_unionid'
-])]
-class User extends Authenticatable implements MustVerifyEmail, FilamentUser, JWTSubject
+class User extends Authenticatable implements MustVerifyEmail
 {
-    /** @use HasFactory<UserFactory> */
-    use HasFactory, MustVerifyEmailTrait, HasRoles, Traits\ActiveUserHelper, Traits\LastActivedAtHelper;
+    use Traits\LastActivedAtHelper;
+    use Traits\ActiveUserHelper;
+    use HasRoles;
+    use HasApiTokens, HasFactory, MustVerifyEmailTrait;
 
     use Notifiable {
         notify as protected laravelNotify;
     }
-
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return $this->can('manage_contents');
-    }
-
-    public function setAvatarAttribute(?string $path): void
-    {
-        if (blank($path) || Str::startsWith($path, ['http://', 'https://'])) {
-            $this->attributes['avatar'] = $path;
-
-            return;
-        }
-
-        $this->attributes['avatar'] = rtrim(config('filesystems.disks.public.url'), '/') . '/' . ltrim($path, '/');
-    }
-
     public function notify($instance)
     {
-        // 如果要通知的人是当前用户,且不是在验证邮箱，就不必通知了！
-        if ($this->id == Auth::id() && get_class($instance) != "Illuminate\Auth\Notifications\VerifyEmail") {
+        // 如果要通知的人是当前用户，就不必通知了！
+        if ($this->id == Auth::id()) {
             return;
         }
 
@@ -73,16 +36,38 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, JWT
 
         $this->laravelNotify($instance);
     }
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+
+    protected $fillable = [
+        'name',
+        'phone',
+        'email',
+        'password',
+        'introduction',
+        'avatar',
+        'weixin_openid',
+        'weixin_unionid'
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+        'weixin_openid',
+        'weixin_unionid'
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+
     public function topics()
     {
         return $this->hasMany(Topic::class);
+    }
+
+    public function isAuthorOf($model)
+    {
+        return $this->id == $model->user_id;
     }
 
     public function replies()
@@ -90,23 +75,34 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, JWT
         return $this->hasMany(Reply::class);
     }
 
-    public function isAuthorOf($model): bool
-    {
-        return $this->id == $model->user_id;
-    }
     public function markAsRead()
     {
         $this->notification_count = 0;
         $this->save();
         $this->unreadNotifications->markAsRead();
     }
-    public function getJWTIdentifier()
+
+    public function setPasswordAttribute($value)
     {
-        return $this->getKey();
+        // 如果值的长度等于 60，即认为是已经做过加密的情况
+        if (strlen($value) != 60) {
+
+            // 不等于 60，做密码加密处理
+            $value = bcrypt($value);
+        }
+
+        $this->attributes['password'] = $value;
     }
 
-    public function getJWTCustomClaims()
+    public function setAvatarAttribute($path)
     {
-        return [];
+        // 如果不是 `http` 子串开头，那就是从后台上传的，需要补全 URL
+        if (! Str::startsWith($path, 'http')) {
+
+            // 拼接完整的 URL
+            $path = config('app.url') . "/uploads/images/avatars/$path";
+        }
+
+        $this->attributes['avatar'] = $path;
     }
 }
