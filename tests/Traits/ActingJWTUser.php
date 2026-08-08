@@ -3,13 +3,13 @@
 namespace Tests\Traits;
 
 use App\Models\User;
+use Laravel\Passport\Passport;
 
 trait ActingJWTUser
 {
-    public function JWTActingAs(User $user)
+    public function JWTActingAs(User $user): static
     {
-        $token = auth('api')->fromUser($user);
-        $this->withHeaders(['Authorization' => 'Bearer ' . $token]);
+        Passport::actingAs($user);
 
         return $this;
     }
