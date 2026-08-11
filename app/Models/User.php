@@ -46,14 +46,17 @@ class User extends Authenticatable implements MustVerifyEmail
         'introduction',
         'avatar',
         'weixin_openid',
-        'weixin_unionid'
+        'weixin_unionid',
+        'registration_id',
+        'weixin_session_key',
+        'weapp_openid',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
         'weixin_openid',
-        'weixin_unionid'
+        'weixin_unionid',
     ];
 
     protected $casts = [
