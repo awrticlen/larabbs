@@ -79,12 +79,32 @@ class AuthorizationsController extends AccessTokenController
         $user->update($attributes);
 
         // 为用户创建 Passport access token
+        return $this->tokenResponse($user);
+    }
+
+    public function weappRefresh()
+    {
+        $user = auth('api')->user();
+        $currentToken = $user?->token();
+
+        if (!$user) {
+            throw new AuthenticationException('The token is invalid.');
+        }
+
+        $response = $this->tokenResponse($user, 200);
+        $currentToken?->revoke();
+
+        return $response;
+    }
+
+    private function tokenResponse(User $user, int $status = 201)
+    {
         $token = $user->createToken('weapp');
 
         return response()->json([
             'token_type' => $token->tokenType,
             'access_token' => $token->accessToken,
             'expires_in' => $token->expiresIn,
-        ], 201);
+        ], $status);
     }
 }
