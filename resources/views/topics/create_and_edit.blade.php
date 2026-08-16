@@ -75,11 +75,14 @@
     <script src="{{ asset('js/uploader.js') }}"></script>
     <script src="{{ asset('js/dompurify.min.js') }}"></script>
     <script src="{{ asset('js/simditor.js') }}"></script>
+    <script src="{{ asset('js/simditor-image-upload.js') }}"></script>
 
     <script>
         $(function() {
-            new Simditor({
+            createTopicImageEditor({
                 textarea: $('#editor'),
+                uploadUrl: '{{ route('images.store') }}',
+                csrfToken: '{{ csrf_token() }}',
             });
         });
     </script>

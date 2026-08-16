@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ConfirmPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\RepliesController;
 use App\Http\Controllers\NotificationsController;
@@ -46,3 +47,4 @@ Route::resource('categories', CategoriesController::class, ['only' => ['show']])
 Route::resource('replies', RepliesController::class, ['only' => ['store', 'destroy']]);
 Route::get('topics/{topic}/{slug?}', [TopicsController::class, 'show'])->name('topics.show');
 Route::resource('notifications', NotificationsController::class, ['only' => ['index']]);
+Route::post('image-uploads', [ImagesController::class, 'store'])->middleware('auth')->name('images.store');
