@@ -40,7 +40,7 @@ class UsersController extends Controller
 
     public function show(User $user, Request $request)
     {
-        return new UserResource($user);
+        return (new UserResource($user))->showEmail();
     }
 
     public function me(Request $request)

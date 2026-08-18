@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Models\Reply;
+use App\Models\User;
 use JPush\PushPayload;
 use App\Notifications\Channels\JPushChannel;
 
@@ -14,7 +15,7 @@ class TopicReplied extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $reply;
+    public Reply $reply;
 
     public function __construct(Reply $reply)
     {
@@ -22,21 +23,32 @@ class TopicReplied extends Notification implements ShouldQueue
         $this->reply = $reply;
     }
 
-    public function via($notifiable)
+    public function via(User $notifiable): array
     {
-        // 开启通知的频道
-        return ['database', 'mail', JPushChannel::class];
+        $channels = ['database', 'mail'];
+
+        if (JPushChannel::registrationIdFor($notifiable) !== null) {
+            $channels[] = JPushChannel::class;
+        }
+
+        return $channels;
     }
 
-    public function toJPush($notifiable, PushPayload $payload): PushPayload
+    public function toJPush(User $notifiable, PushPayload $payload): PushPayload
     {
+        $registrationId = JPushChannel::registrationIdFor($notifiable);
+
+        if ($registrationId === null) {
+            return $payload;
+        }
+
         return $payload
             ->setPlatform('all')
-            ->addRegistrationId($notifiable->registration_id)
+            ->addRegistrationId($registrationId)
             ->setNotificationAlert(strip_tags($this->reply->content));
     }
 
-    public function toDatabase($notifiable)
+    public function toDatabase(User $_notifiable): array
     {
         $topic = $this->reply->topic;
         $link =  $topic->link(['#reply' . $this->reply->id]);
@@ -53,7 +65,7 @@ class TopicReplied extends Notification implements ShouldQueue
             'topic_title' => $topic->title,
         ];
     }
-    public function toMail($notifiable)
+    public function toMail(User $_notifiable): MailMessage
     {
         $url = $this->reply->topic->link(['#reply' . $this->reply->id]);
 

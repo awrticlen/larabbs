@@ -8,10 +8,18 @@ class UserResource extends JsonResource
 {
     protected $showSensitiveFields = false;
 
+    protected $showEmail = false;
+
     public function toArray($request)
     {
         if (!$this->showSensitiveFields) {
-            $this->resource->makeHidden(['phone', 'email']);
+            $hiddenFields = ['phone'];
+
+            if (!$this->showEmail) {
+                $hiddenFields[] = 'email';
+            }
+
+            $this->resource->makeHidden($hiddenFields);
         }
 
         $data = parent::toArray($request);
@@ -21,6 +29,13 @@ class UserResource extends JsonResource
         $data['roles'] = RoleResource::collection($this->whenloaded('roles'));
 
         return $data;
+    }
+
+    public function showEmail()
+    {
+        $this->showEmail = true;
+
+        return $this;
     }
 
     public function showSensitiveFields()
