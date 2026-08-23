@@ -95,7 +95,7 @@ Route::prefix('v1')
                         ->name('user.update');
                     // 编辑登录用户信息
                     Route::put('user', [UsersController::class, 'update'])
-                        ->name('user.update');
+                        ->name('user.update.put');
                     // 上传图片
                     Route::post('images', [ImagesController::class, 'store'])
                         ->name('images.store');
@@ -121,7 +121,7 @@ Route::prefix('v1')
                     Route::patch('user/read/notifications', [NotificationsController::class, 'read'])
                         ->name('user.notifications.read');
                     Route::put('user/read/notifications', [NotificationsController::class, 'read'])
-                        ->name('user.notifications.read');
+                        ->name('user.notifications.read.put');
                     // 当前登录用户权限
                     Route::get('user/permissions', [PermissionsController::class, 'index'])
                         ->name('user.permissions.index');
