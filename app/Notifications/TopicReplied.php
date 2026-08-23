@@ -6,12 +6,13 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\Contracts\JPushNotification;
 use App\Models\Reply;
 use App\Models\User;
 use JPush\PushPayload;
 use App\Notifications\Channels\JPushChannel;
 
-class TopicReplied extends Notification implements ShouldQueue
+class TopicReplied extends Notification implements ShouldQueue, JPushNotification
 {
     use Queueable;
 
