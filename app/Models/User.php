@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 {
     use Traits\LastActivedAtHelper;
     use Traits\ActiveUserHelper;
@@ -23,6 +25,11 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable {
         notify as protected laravelNotify;
     }
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->hasAnyRole(['Founder', 'Maintainer']);
+    }
+
     public function notify($instance)
     {
         // 如果要通知的人是当前用户，就不必通知了！
